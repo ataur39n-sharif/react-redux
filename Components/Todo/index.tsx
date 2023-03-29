@@ -1,14 +1,19 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Button, Form, InputGroup} from "react-bootstrap";
 import List from "./list";
 import {toast, Toaster} from "react-hot-toast";
 import {useDispatch, useSelector} from "react-redux";
-import {addTodo} from "../../Redux/Todo/actions/TodoActions";
+import {addTodo} from "../../Redux/actions/TodoActions";
+import {RootState} from "../../Redux/reducers/rootReducer";
+import {loadPosts} from "../../Redux/Thunk/jsonPlaceholderThunk";
+import {AnyAction} from "redux";
+import {ThunkDispatch} from "redux-thunk";
 
 const Todo = () => {
-    const taskList = useSelector((state) => state.taskList)
-    const dispatch = useDispatch()
     const [task, setTask] = useState('')
+
+    const taskList = useSelector((state: RootState) => state.todos.taskList)
+    const dispatch = useDispatch<ThunkDispatch<{}, {}, AnyAction>>()
     const handleTask = () => {
         toast.loading('wait')
         setTimeout(() => {
@@ -21,10 +26,17 @@ const Todo = () => {
         }, 1000)
     }
 
+    useEffect(() => {
+        dispatch(loadPosts())
+            .then(res => console.log('Successfully all post loaded.'))
+            .catch(err => console.log(err.message))
+    }, [dispatch])
+
     return (
         <div>
             <Toaster/>
-            <h1 className={'text-center'}> My Todo{"'"}s</h1>
+            <h6 className={'text-center'}> My Todo{"'"}s </h6>
+            <small className={'d-flex justify-content-end'}>(without thunk)</small>
             <div>
                 <InputGroup className="mb-3">
                     <Form.Control

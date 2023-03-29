@@ -4,18 +4,18 @@ import {FaRegEdit} from "react-icons/fa";
 import {AiFillDelete} from "react-icons/ai";
 import {toast} from "react-hot-toast";
 import {useDispatch} from "react-redux";
-import {deleteTodo} from "../../Redux/Todo/actions/TodoActions";
+import {deleteTodo} from "../../Redux/actions/TodoActions";
 
 const List = ({taskList}: { taskList: string[] }) => {
     const dispatch = useDispatch()
-    const handleDelete = (task) => {
+    const handleDelete = (task: string) => {
         dispatch(deleteTodo(task))
     }
     return (
         <div>
             <ListGroup as="ol" numbered>
                 {
-                    taskList.map((task: string, id: number) => <>
+                    taskList.map((task: string, id: number) =>
                         <ListGroup.Item key={id}
                                         as="li"
                                         className="d-flex justify-content-between align-items-start"
@@ -36,7 +36,7 @@ const List = ({taskList}: { taskList: string[] }) => {
                             </div>
 
                         </ListGroup.Item>
-                    </>)
+                    )
                 }
             </ListGroup>
         </div>

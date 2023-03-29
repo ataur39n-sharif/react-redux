@@ -1,4 +1,4 @@
-import {TodoActions} from "../actionTypes";
+import {TodoActions} from '../actionTypes';
 
 type returnType = {
     type: string,

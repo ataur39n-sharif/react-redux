@@ -1,6 +1,8 @@
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
 import Todo from "../Components/Todo";
+import {Col, Row} from "react-bootstrap";
+import Users from "../Components/Users";
 
 export default function Home() {
     return (
@@ -12,7 +14,15 @@ export default function Home() {
             </Head>
 
             <main className={styles.main}>
-                <Todo/>
+                <h1 className={'mb-5'}>React-Redux</h1>
+                <Row>
+                    <Col>
+                        <Users/>
+                    </Col>
+                    <Col>
+                        <Todo/>
+                    </Col>
+                </Row>
             </main>
 
         </div>
