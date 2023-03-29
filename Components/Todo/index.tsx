@@ -2,27 +2,29 @@ import React, {useState} from 'react';
 import {Button, Form, InputGroup} from "react-bootstrap";
 import List from "./list";
 import {toast, Toaster} from "react-hot-toast";
+import {useDispatch, useSelector} from "react-redux";
+import {addTodo} from "../../Redux/Todo/actions/TodoActions";
 
 const Todo = () => {
-    const [taskList, setTaskList] = useState<string[]>([])
+    const taskList = useSelector((state) => state.taskList)
+    const dispatch = useDispatch()
     const [task, setTask] = useState('')
-    console.log(taskList)
-    console.log(task)
     const handleTask = () => {
         toast.loading('wait')
         setTimeout(() => {
             toast.dismiss()
             if (!task) return toast.error('Input your task name')
-            taskList.push(task)
+            // taskList.push(task)
+            dispatch(addTodo(task))
             setTask('')
             toast.success('Added')
-        },2000)
-
-
+        }, 1000)
     }
+
+    console.log(taskList)
     return (
         <div>
-            <Toaster position="top-right"/>
+            <Toaster/>
             <h1 className={'text-center'}> My Todo{"'"}s</h1>
             <div>
                 <InputGroup className="mb-3">
