@@ -19,6 +19,12 @@ const todoReducer = (store: IofState = initialState, action: AnyAction) => {
                 ...store,
                 taskList: [...store.taskList, payload]
             }
+        case TodoActions.DELETE_TODO:
+            const updateTodo = store.taskList.filter((task) => task !== payload)
+            return {
+                ...store,
+                taskList: updateTodo
+            }
         default:
             return store
     }

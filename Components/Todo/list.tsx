@@ -3,9 +3,14 @@ import {ListGroup} from "react-bootstrap";
 import {FaRegEdit} from "react-icons/fa";
 import {AiFillDelete} from "react-icons/ai";
 import {toast} from "react-hot-toast";
+import {useDispatch} from "react-redux";
+import {deleteTodo} from "../../Redux/Todo/actions/TodoActions";
 
 const List = ({taskList}: { taskList: string[] }) => {
-    console.log(taskList)
+    const dispatch = useDispatch()
+    const handleDelete = (task) => {
+        dispatch(deleteTodo(task))
+    }
     return (
         <div>
             <ListGroup as="ol" numbered>
@@ -26,7 +31,7 @@ const List = ({taskList}: { taskList: string[] }) => {
                                 />
                                 <AiFillDelete
                                     type={'button'}
-                                    onClick={() => toast.error('Not ready yet')}
+                                    onClick={() => handleDelete(task)}
                                 />
                             </div>
 

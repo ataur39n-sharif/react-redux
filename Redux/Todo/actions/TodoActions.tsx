@@ -11,3 +11,10 @@ export const addTodo = (data: string): returnType => {
         payload: data
     }
 }
+
+export const deleteTodo = (data: string): returnType => {
+    return {
+        type: TodoActions.DELETE_TODO,
+        payload: data
+    }
+}

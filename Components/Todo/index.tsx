@@ -21,7 +21,6 @@ const Todo = () => {
         }, 1000)
     }
 
-    console.log(taskList)
     return (
         <div>
             <Toaster/>
