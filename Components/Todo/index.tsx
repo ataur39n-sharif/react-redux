@@ -1,19 +1,16 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {Button, Form, InputGroup} from "react-bootstrap";
 import List from "./list";
 import {toast, Toaster} from "react-hot-toast";
 import {useDispatch, useSelector} from "react-redux";
 import {addTodo} from "../../Redux/actions/TodoActions";
 import {RootState} from "../../Redux/reducers/rootReducer";
-import {loadPosts} from "../../Redux/Thunk/jsonPlaceholderThunk";
-import {AnyAction} from "redux";
-import {ThunkDispatch} from "redux-thunk";
 
 const Todo = () => {
     const [task, setTask] = useState('')
 
     const taskList = useSelector((state: RootState) => state.todos.taskList)
-    const dispatch = useDispatch<ThunkDispatch<{}, {}, AnyAction>>()
+    const dispatch = useDispatch()
     const handleTask = () => {
         toast.loading('wait')
         setTimeout(() => {
@@ -26,11 +23,6 @@ const Todo = () => {
         }, 1000)
     }
 
-    useEffect(() => {
-        dispatch(loadPosts())
-            .then(res => console.log('Successfully all post loaded.'))
-            .catch(err => console.log(err.message))
-    }, [dispatch])
 
     return (
         <div>

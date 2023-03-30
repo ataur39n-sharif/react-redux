@@ -8,7 +8,7 @@ import {RootState} from "../../Redux/reducers/rootReducer";
 import {Ipost} from "../../Redux/reducers/jsonPlaceholderReducers";
 import {showLoading} from "../../Redux/actions/jsonPlaceholderActions";
 
-const Users = () => {
+const Blogs = () => {
     const state = useSelector((state: RootState) => state.jsonPlaceholder)
     const dispatch = useDispatch()
     const {posts, loading} = state
@@ -68,4 +68,4 @@ const Users = () => {
     );
 };
 
-export default Users;
+export default Blogs;
