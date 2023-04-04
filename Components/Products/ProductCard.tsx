@@ -3,8 +3,8 @@ import {Card} from "react-bootstrap";
 
 const ProductCard = ({product}: { product: any }) => {
     return (
-        <Card className={''} style={{minHeight: '100%'}}>
-            <Card.Img src={product.thumbnail}/>
+        <Card id={'card_section'} className={''} style={{height: '40vh'}}>
+            <Card.Img className={'p-2'} src={product.thumbnail} style={{height: "20vh"}}/>
             <Card.Body>
                 <Card.Title>{product?.title}</Card.Title>
                 <Card.Text>
