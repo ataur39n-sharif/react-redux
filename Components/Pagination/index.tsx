@@ -1,8 +1,8 @@
 import React from 'react';
 import {Pagination} from "react-bootstrap";
 
-const PaginationC = ({data, setData, status}: { data: any, setData: any, status: any }) => {
-    const {total, page, limit} = data
+const PaginationC = ({data, status}: { data: any, status: any }) => {
+    const {total, limit} = data
     const [active, setActive] = status
     // console.log(data)
 

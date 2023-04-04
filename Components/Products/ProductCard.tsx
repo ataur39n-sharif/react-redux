@@ -1,16 +1,17 @@
 import React from 'react';
 import {Card} from "react-bootstrap";
+import {useRouter} from "next/router";
 
 const ProductCard = ({product}: { product: any }) => {
+    const router = useRouter();
     return (
-        <Card id={'card_section'} className={''} style={{height: '40vh'}}>
+        <Card id={'card_section'} className={''} style={{height: '40vh'}}
+              onClick={() => router.push(`/product/${product._id}`)}>
             <Card.Img className={'p-2'} src={product.thumbnail} style={{height: "20vh"}}/>
             <Card.Body>
                 <Card.Title>{product?.title}</Card.Title>
                 <Card.Text>
-                    This is a longer card with supporting text below as a natural
-                    lead-in to additional content. This content is a little bit
-                    longer.
+                    {product?.description}
                 </Card.Text>
             </Card.Body>
         </Card>

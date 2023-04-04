@@ -21,7 +21,10 @@ const Navbar = () => {
                     <Nav.Link eventKey="add-product">Add product</Nav.Link>
                 </Nav.Item>
                 <Nav.Item>
-                    <Button variant="light"><BsSearch/></Button>
+                    <Nav.Link eventKey="search">
+                        <Button variant="light"><BsSearch/></Button>
+                    </Nav.Link>
+
                 </Nav.Item>
                 <Nav.Item>
                     <Button variant="light"><FaUserSecret/></Button>
