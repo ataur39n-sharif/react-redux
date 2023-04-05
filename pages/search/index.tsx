@@ -14,7 +14,7 @@ const SearchResult = () => {
         <div className={'container text-center w-100'}>
 
             <div className={'d-flex justify-content-center'}>
-                <input placeholder={'Search anything what you need'} type="text"
+                <input placeholder={'Search anything what you need and Hit "Enter"'} type="text"
                        className={'form-control text-center w-50'}
                        onChange={(e) => setText(e.target.value)}
                        onKeyDown={(e) => e.key === 'Enter' && handleChange(text)}

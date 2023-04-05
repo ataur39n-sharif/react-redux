@@ -3,6 +3,7 @@ import {GetServerSideProps} from "next";
 import ProductInputForm from "../../../Components/Forms/ProductInputForm";
 import {useForm} from "react-hook-form";
 import {useRouter} from "next/router";
+import axios from "axios";
 
 const EditProductById = ({data: fromServer}: { data: any }) => {
     const [data, setData] = useState({
@@ -53,7 +54,22 @@ const EditProductById = ({data: fromServer}: { data: any }) => {
         setValue('rating', data.rating);
     }, [data])
     const onSubmit = async (data: any) => {
-        console.log(data)
+        try {
+            const addProduct = await axios.put(`https://anxious-erin-shrug.cyclic.app/api/products/${id}`, {
+                title: data.title,
+                description: data.description,
+                price: Number(data.price),
+                category: data.category,
+                rating: Number(data.rating),
+                stock: Number(data.stock),
+                brand: data.brand,
+                discountPercentage: Number(data.discountPercentage)
+            })
+            await router.push(`/product/${addProduct.data._id}`)
+            console.log(addProduct)
+        } catch (e) {
+            if (e instanceof Error) alert(e.message)
+        }
     }
     return (
         <div className={'d-flex align-items-center'} style={{minHeight: '90vh'}}>
