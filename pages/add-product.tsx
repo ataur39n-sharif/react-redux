@@ -3,6 +3,7 @@ import {useForm} from "react-hook-form";
 import axios from "axios";
 import ProductInputForm from "../Components/Forms/ProductInputForm";
 import {useRouter} from "next/router";
+import toast from "react-hot-toast";
 
 const AddProduct = () => {
     const {
@@ -15,6 +16,7 @@ const AddProduct = () => {
     const router = useRouter()
     const onSubmit = async (data: any) => {
         try {
+            toast.loading('Please wait...')
             const addProduct = await axios.post('https://anxious-erin-shrug.cyclic.app/api/products/', {
                 title: data.title,
                 description: data.description,
@@ -25,6 +27,8 @@ const AddProduct = () => {
                 brand: data.brand,
                 discountPercentage: Number(data.discountPercentage)
             })
+            toast.dismiss()
+            toast.success('New Product Added')
             await router.push(`/product/${addProduct.data._id}`)
             console.log(addProduct)
             reset()

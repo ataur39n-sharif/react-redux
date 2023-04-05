@@ -4,6 +4,7 @@ import ProductInputForm from "../../../Components/Forms/ProductInputForm";
 import {useForm} from "react-hook-form";
 import {useRouter} from "next/router";
 import axios from "axios";
+import toast from "react-hot-toast";
 
 const EditProductById = ({data: fromServer}: { data: any }) => {
     const [data, setData] = useState({
@@ -21,9 +22,14 @@ const EditProductById = ({data: fromServer}: { data: any }) => {
     const router = useRouter()
     const {id} = router.query
     useEffect(() => {
+        toast.dismiss()
+        toast.loading('please wait...')
         fetch(`https://anxious-erin-shrug.cyclic.app/api/products/${id}`)
             .then(res => res.json())
-            .then(data => setData(data))
+            .then(data => {
+                setData(data)
+                toast.dismiss()
+            })
             .catch(err => console.log(err))
     }, [])
     const {
@@ -55,6 +61,7 @@ const EditProductById = ({data: fromServer}: { data: any }) => {
     }, [data])
     const onSubmit = async (data: any) => {
         try {
+            toast.loading('please wait...')
             const addProduct = await axios.put(`https://anxious-erin-shrug.cyclic.app/api/products/${id}`, {
                 title: data.title,
                 description: data.description,
@@ -65,6 +72,8 @@ const EditProductById = ({data: fromServer}: { data: any }) => {
                 brand: data.brand,
                 discountPercentage: Number(data.discountPercentage)
             })
+            toast.dismiss()
+            toast.success('Success')
             await router.push(`/product/${addProduct.data._id}`)
             console.log(addProduct)
         } catch (e) {

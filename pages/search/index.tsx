@@ -1,13 +1,21 @@
 import React, {useState} from 'react';
 import axios from "axios";
 import Products from "../../Components/Products";
+import toast from "react-hot-toast";
 
 const SearchResult = () => {
     const [text, setText] = useState('')
     const [result, setResult] = useState([])
     const handleChange = async (value: string) => {
-        const data = await axios.get(`https://anxious-erin-shrug.cyclic.app/api/products/search?q=${value}`)
-        setResult(data.data)
+        try {
+            toast.dismiss()
+            toast.loading('Please wait ...')
+            const data = await axios.get(`https://anxious-erin-shrug.cyclic.app/api/products/search?q=${value}`)
+            setResult(data.data)
+            toast.dismiss()
+        } catch (e) {
+            if (e instanceof Error) alert(e.message)
+        }
     }
 
     return (

@@ -4,6 +4,7 @@ import {FaRegEdit} from "react-icons/fa";
 import {RiDeleteBin6Fill} from "react-icons/ri";
 import axios from "axios";
 import {useRouter} from "next/router";
+import toast from "react-hot-toast";
 
 const ProductsList = () => {
     const router = useRouter()
@@ -12,17 +13,23 @@ const ProductsList = () => {
     const [change, setChange] = useState(false)
 
     useEffect(() => {
+        toast.dismiss()
+        toast.loading('Please wait....')
         fetch(`https://anxious-erin-shrug.cyclic.app/api/products`)
             .then(res => res.json())
             .then(data => {
                 setProducts(data?.products)
+                toast.dismiss();
             })
             .catch(err => console.log(err));
     }, [change]);
 
     const handleDelete = async (id: string) => {
         try {
+            toast.loading('please wait...');
             const response = await axios.delete(`https://anxious-erin-shrug.cyclic.app/api/products/${id}`)
+            toast.dismiss()
+            toast.success('Successfully deleted')
             setChange(!change)
         } catch (e) {
             if (e instanceof Error) console.log(e.message)

@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import Products from "../Components/Products";
 import {useEffect, useState} from "react";
+import toast from "react-hot-toast";
 
 export default function Home() {
     const [data, setData] = useState({
@@ -9,6 +10,8 @@ export default function Home() {
     const [active, setActive] = useState(1)
     const [others, setOthers] = useState({});
     useEffect(() => {
+        toast.dismiss()
+        toast.loading('loading.....')
         fetch(`https://anxious-erin-shrug.cyclic.app/api/products?limit=4&page=${active}`)
             .then(res => res.json())
             .then(data => {
@@ -19,6 +22,7 @@ export default function Home() {
                     page: data.page,
                 })
                 setActive(data?.page)
+                toast.dismiss()
             })
             .catch(err => console.log(err));
     }, [active])

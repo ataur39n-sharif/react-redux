@@ -3,6 +3,7 @@ import {GetServerSideProps} from "next";
 import Image from "next/image";
 import {Button} from "react-bootstrap";
 import {useRouter} from "next/router";
+import toast from "react-hot-toast";
 
 const ProductById = ({data: fromServer}: { data: any }) => {
     const [data, setData] = useState({
@@ -17,16 +18,24 @@ const ProductById = ({data: fromServer}: { data: any }) => {
     const router = useRouter()
     const {id} = router.query
     useEffect(() => {
+        toast.dismiss()
+        toast.loading('loading...')
         fetch(`https://anxious-erin-shrug.cyclic.app/api/products/${id}`)
             .then(res => res.json())
-            .then(data => setData(data))
+            .then(data => {
+                setData(data)
+                toast.dismiss()
+            })
             .catch(err => console.log(err))
     }, [])
     return (
         <div className={'d-flex align-items-center'} style={{minHeight: '90vh'}}>
             <div className={'container text-center d-flex justify-content-center h-100'}>
                 <div>
-                    <Image src={data.thumbnail} alt={'product image'} width={700} height={500} className={'p-3'}/>
+                    {
+                        data.thumbnail &&
+                        <Image src={data.thumbnail} alt={'product image'} width={700} height={500} className={'p-3'}/>
+                    }
                     <h5>Title : {data.title}</h5>
                     <p>Description:{data.description}</p>
                     <p>Price :USD {data.price}</p>
