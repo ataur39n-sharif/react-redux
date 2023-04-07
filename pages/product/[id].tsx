@@ -4,6 +4,7 @@ import Image from "next/image";
 import {Button} from "react-bootstrap";
 import {useRouter} from "next/router";
 import toast from "react-hot-toast";
+import {IoArrowBackCircle} from "react-icons/io5";
 
 const ProductById = ({data: fromServer}: { data: any }) => {
     const [data, setData] = useState({
@@ -41,8 +42,14 @@ const ProductById = ({data: fromServer}: { data: any }) => {
                     <p>Price :USD {data.price}</p>
                     <p>Category : {data.category}</p>
                     <p>Stock:{data.stock}</p>
+                    <Button variant={'outline-dark'}
+                            className={'me-1'}
+                            onClick={() => router.push(`/products`)}>
+                        <IoArrowBackCircle/>
+                    </Button>
                     <Button variant={'outline-dark'} onClick={() => router.push(`/product/edit/${id}`)}>Edit
                         product</Button>
+
                 </div>
             </div>
         </div>

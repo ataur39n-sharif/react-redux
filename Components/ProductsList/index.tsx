@@ -44,14 +44,20 @@ const ProductsList = ({products, change, setChange}: {
                         return (
                             <tr key={id}>
                                 <td>{product._id} ({id + 1})</td>
-                                <td>{product.title}</td>
+                                <td
+                                    onClick={() => router.push(`/product/${product._id}`)}
+                                    style={{cursor: 'pointer'}}
+                                >
+                                    {product.title}
+                                </td>
                                 <td>USD {product.price}</td>
                                 <td>{product.stock}</td>
-                                <td><FaRegEdit
-                                    className={'me-2'}
-                                    type={'button'}
-                                    onClick={() => router.push(`/product/edit/${product._id}`)}
-                                />
+                                <td>
+                                    <FaRegEdit
+                                        className={'me-2'}
+                                        type={'button'}
+                                        onClick={() => router.push(`/product/edit/${product._id}`)}
+                                    />
                                     <RiDeleteBin6Fill
                                         type={'button'}
                                         onClick={() => handleDelete(product._id)}
