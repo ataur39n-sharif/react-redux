@@ -11,8 +11,8 @@ export default function Home() {
     const [others, setOthers] = useState({});
     useEffect(() => {
         toast.dismiss()
-        toast.loading('loading.....')
-        fetch(`https://anxious-erin-shrug.cyclic.app/api/products?limit=4&page=${active}`)
+        toast.loading('Data fetching.....')
+        fetch(`https://anxious-erin-shrug.cyclic.app/api/products?limit=8&page=${active}`)
             .then(res => res.json())
             .then(data => {
                 setData(data)

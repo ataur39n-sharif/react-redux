@@ -14,7 +14,7 @@ const ProductById = ({data: fromServer}: { data: any }) => {
         category: '',
         stock: ''
     })
-    console.log(data)
+    // console.log(data)
     const router = useRouter()
     const {id} = router.query
     useEffect(() => {

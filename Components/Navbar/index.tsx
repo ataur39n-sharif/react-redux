@@ -26,7 +26,7 @@ const Navbar = () => {
             text: <BsSearch/>
         },
         {
-            path: "/secret",
+            path: "/users",
             text: <FaUserSecret/>
         }
     ]
