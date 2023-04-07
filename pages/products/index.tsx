@@ -20,7 +20,7 @@ const ProductsPage = () => {
 
     return (
         <div className={'container'}>
-            <ProductsList products={products} setProducts={setProducts} change={change} setChange={setChange}/>
+            <ProductsList products={products} change={change} setChange={setChange}/>
         </div>
     );
 };
