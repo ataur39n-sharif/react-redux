@@ -38,16 +38,6 @@ const EditProductById = ({data: fromServer}: { data: any }) => {
         formState: {errors},
         setValue
     } = useForm({
-        // defaultValues: {
-        //     title: data?.title,
-        //     description: data?.description,
-        //     price: data.price,
-        //     category: data.category,
-        //     stock: data.stock,
-        //     brand: data.brand,
-        //     discountPercentage: data.discountPercentage,
-        //     rating: data.rating
-        // }
     });
     useEffect(() => {
         setValue('title', data?.title);
