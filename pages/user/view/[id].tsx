@@ -6,6 +6,8 @@ import {IoArrowBackCircle} from "react-icons/io5";
 
 const SingleUser = () => {
     const router = useRouter()
+    const {id} = router.query
+
     const [user, setUser] = useState({
         id: null,
         name: "",
@@ -14,8 +16,7 @@ const SingleUser = () => {
         phone: "",
     })
 
-    const {id} = router.query
-    console.log(id)
+
     useEffect(() => {
         toast.dismiss()
         toast.loading('loading...')
@@ -28,7 +29,6 @@ const SingleUser = () => {
             .catch(err => console.log(err))
     }, [id])
 
-    console.log(user)
     return (
         <div className={'d-flex align-items-center'} style={{minHeight: '90vh'}}>
             <div className={'container text-center d-flex justify-content-center h-100'}>

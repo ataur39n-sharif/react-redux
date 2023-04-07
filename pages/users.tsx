@@ -16,7 +16,6 @@ const Users = () => {
             })
             .catch(error => console.log(error.message))
     }, [])
-    console.log(users)
     return (
         <div className={'container'}>
             <UserList users={users}/>
