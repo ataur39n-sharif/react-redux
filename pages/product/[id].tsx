@@ -15,7 +15,7 @@ const ProductById = ({data: fromServer}: { data: any }) => {
         category: '',
         stock: ''
     })
-    // console.log(data)
+
     const router = useRouter()
     const {id} = router.query
     useEffect(() => {
@@ -24,6 +24,7 @@ const ProductById = ({data: fromServer}: { data: any }) => {
         fetch(`https://anxious-erin-shrug.cyclic.app/api/products/${id}`)
             .then(res => res.json())
             .then(data => {
+                console.log(typeof (data.price))
                 setData(data)
                 toast.dismiss()
             })
