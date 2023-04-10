@@ -15,52 +15,72 @@ export type TProduct = {
     rating: number | null,
     brand: string
 }
-
+/*products type*/
+export type TProducts = {
+    data: TProduct[],
+    limit?: number,
+    page?: number,
+    total?: number,
+}
 /*type of product state*/
 export type TProductState = {
-    products: TProduct[],
+    products: TProducts,
     selectedProduct: TProduct | null,
     message: string | null,
     loading: boolean,
-    error: string | null
+    error: string | null,
+    reload: boolean
 }
+
+export const defaultProducts = {data: [], limit: 4, page: 1}
 
 /* initial products state*/
 const initialState: TProductState = {
-    products: [],
+    products: defaultProducts,
     selectedProduct: null,
     message: null,
     loading: false,
-    error: null
+    error: null,
+    reload: false
 }
 
 export const productReducer = (state: TProductState = initialState, action: AnyAction) => {
     const {type, payload} = action
     const {
         FETCH_PRODUCTS, FETCH_PRODUCTS_SUCCESS, FETCH_PRODUCTS_FAILURE,
-        FETCH_SINGLE_PRODUCT, FETCH_SINGLE_PRODUCT_SUCCESS, FETCH_SINGLE_PRODUCT_FAILURE
+        FETCH_SINGLE_PRODUCT, FETCH_SINGLE_PRODUCT_SUCCESS, FETCH_SINGLE_PRODUCT_FAILURE,
+        PAGINATE_DATA
     } = productsActionTypes
 
     switch (type) {
-        case FETCH_SINGLE_PRODUCT || FETCH_PRODUCTS:
+        case FETCH_SINGLE_PRODUCT :
             return {
                 ...state,
                 selectedProduct: null,
-                products: [],
                 loading: true,
                 error: null
+            }
+        case  FETCH_PRODUCTS:
+            return {
+                ...state,
+                products: defaultProducts,
+                selectedProduct: null,
+                loading: true,
+                error: null,
+                reload: true
             }
         case FETCH_PRODUCTS_SUCCESS:
             return {
                 ...state,
                 products: action.payload,
                 loading: false,
-                error: null
+                error: null,
+                reload: false
             }
         case FETCH_PRODUCTS_FAILURE:
             return {
                 ...state,
-                products: [],
+                products: defaultProducts,
                 loading: false,
                 error: payload
             }
@@ -78,6 +98,16 @@ export const productReducer = (state: TProductState = initialState, action: AnyA
                 loading: false,
                 error: payload
             }
+        case PAGINATE_DATA: {
+            return {
+                ...state,
+                products: {
+                    ...state.products,
+                    page: payload
+                },
+                reload: true
+            }
+        }
         default:
             return state
     }

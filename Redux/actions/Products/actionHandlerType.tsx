@@ -1,5 +1,5 @@
 import {productsActionTypes} from "../../actionTypes";
-import {TProduct} from "../../reducers/Products/productsReducers";
+import {TProduct, TProducts} from "../../reducers/Products/productsReducers";
 
 export type TFetching = {
     type: typeof productsActionTypes.FETCH_PRODUCTS | productsActionTypes.FETCH_SINGLE_PRODUCT,
@@ -7,7 +7,7 @@ export type TFetching = {
 
 export type TGetAllProducts = {
     type: typeof productsActionTypes.FETCH_PRODUCTS_SUCCESS,
-    payload: TProduct[]
+    payload: TProducts
 }
 
 export type TGetSingleProduct = {
@@ -15,8 +15,13 @@ export type TGetSingleProduct = {
     payload: TProduct
 }
 
+export type TPaginate = {
+    type: typeof productsActionTypes.PAGINATE_DATA,
+    payload: number
+}
+
 export type THandleError = {
-    type: typeof productsActionTypes.FETCH_PRODUCTS_FAILURE |productsActionTypes.FETCH_SINGLE_PRODUCT_FAILURE,
+    type: typeof productsActionTypes.FETCH_PRODUCTS_FAILURE | productsActionTypes.FETCH_SINGLE_PRODUCT_FAILURE,
     payload: string
 }
 

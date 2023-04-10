@@ -1,8 +1,8 @@
-import {TProduct} from "../../reducers/Products/productsReducers";
+import {TProduct, TProducts} from "../../reducers/Products/productsReducers";
 import {productsActionTypes} from "../../actionTypes";
-import {TFetching, TGetAllProducts, TGetSingleProduct, THandleError} from "./actionHandlerType";
+import {TFetching, TGetAllProducts, TGetSingleProduct, THandleError, TPaginate} from "./actionHandlerType";
 
-export const fetchRequest = (): TFetching => {
+export const allFetchRequest = (): TFetching => {
     return {
         type: productsActionTypes.FETCH_PRODUCTS
     }
@@ -13,7 +13,7 @@ export const singleFetchRequest = (): TFetching => {
     }
 }
 
-export const getAllProducts = (data: TProduct[]): TGetAllProducts => {
+export const getAllProducts = (data: TProducts): TGetAllProducts => {
     return {
         type: productsActionTypes.FETCH_PRODUCTS_SUCCESS,
         payload: data
@@ -27,7 +27,6 @@ export const getSingleProduct = (data: TProduct): TGetSingleProduct => {
     }
 }
 
-
 export const allProductsHandleError = (message: string): THandleError => {
     return {
         type: productsActionTypes.FETCH_PRODUCTS_FAILURE,
@@ -39,5 +38,13 @@ export const singleProductHandleError = (message: string): THandleError => {
     return {
         type: productsActionTypes.FETCH_PRODUCTS_FAILURE,
         payload: message
+    }
+}
+
+
+export const paginate = (pageNo: number): TPaginate => {
+    return {
+        type: productsActionTypes.PAGINATE_DATA,
+        payload: pageNo
     }
 }

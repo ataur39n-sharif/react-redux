@@ -3,7 +3,7 @@ import ProductCard from "./ProductCard";
 import {Col, Row} from "react-bootstrap";
 import Pagination from "../Pagination";
 
-const Products = ({products, others, status}: { products: any[], others?: any | {}, status?: any }) => {
+const Products = ({products}: { products: any[] }) => {
 
     return (
         <div className={'mt-5 mb-5'}>
@@ -11,11 +11,10 @@ const Products = ({products, others, status}: { products: any[], others?: any | 
                 {
                     products.map((product: any, i: number) => <Col key={i}><ProductCard product={product}/></Col>)
                 }
-                {/*<ProductCard/>*/}
             </Row>
             {
-                others?.total &&
-                <Pagination data={others} status={status}/>
+                products &&
+                <Pagination/>
             }
         </div>
     );

@@ -1,31 +1,38 @@
 import Head from 'next/head'
 import Products from "../Components/Products";
-import {useEffect, useState} from "react";
+import {useEffect} from "react";
+import {useDispatch, useSelector} from "react-redux";
+import {TProductState} from "../Redux/reducers/Products/productsReducers";
+import {loadAllProducts} from "../Redux/thunk/productThunk";
+import {ThunkDispatch} from "redux-thunk";
+import {TProductActionHandlers} from "../Redux/actions/Products/actionHandlerType";
+import {allFetchRequest} from "../Redux/actions/Products/productActions";
 import toast from "react-hot-toast";
 
 export default function Home() {
-    const [data, setData] = useState({
-        products: []
-    })
-    const [active, setActive] = useState(1)
-    const [others, setOthers] = useState({});
+    const {products, loading, error, reload} = useSelector((state: TProductState) => state)
+    const dispatch = useDispatch<ThunkDispatch<TProductState, any, TProductActionHandlers>>()
+    const {limit, page} = products
+
+
     useEffect(() => {
-        toast.dismiss()
-        toast.loading('Data fetching.....')
-        fetch(`https://anxious-erin-shrug.cyclic.app/api/products?limit=8&page=${active}`)
-            .then(res => res.json())
-            .then(data => {
-                setData(data)
-                setOthers({
-                    total: data.total,
-                    limit: data.limit,
-                    page: data.page,
-                })
-                setActive(data?.page)
-                toast.dismiss()
-            })
-            .catch(err => console.log(err));
-    }, [active])
+        dispatch(allFetchRequest())
+    }, [])
+
+    useEffect(() => {
+        page && reload && dispatch(loadAllProducts(page, 8))
+    }, [reload])
+
+    useEffect(() => {
+        if (loading) {
+            toast.loading('Data fetching...')
+        } else if (error) {
+            toast.dismiss()
+            toast.error(error)
+        } else {
+            toast.dismiss()
+        }
+    }, [loading])
 
     return (
         <div>
@@ -38,7 +45,10 @@ export default function Home() {
             <main className={'container'}>
                 <h1 className={'mb-5'}>My ecommerce project</h1>
                 <div>
-                    <Products products={data?.products} others={others} status={[active, setActive]}/>
+                    {
+                        products && <Products products={products.data}/>
+                    }
+
                 </div>
             </main>
 

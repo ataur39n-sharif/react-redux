@@ -31,14 +31,13 @@ const EditProductById = ({data: fromServer}: { data: any }) => {
                 toast.dismiss()
             })
             .catch(err => console.log(err))
-    }, [])
+    }, [id])
     const {
         register,
         handleSubmit,
         formState: {errors},
         setValue
-    } = useForm({
-    });
+    } = useForm({});
     useEffect(() => {
         setValue('title', data?.title);
         setValue('description', data?.description);
