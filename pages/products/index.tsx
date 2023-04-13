@@ -1,26 +1,32 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import ProductsList from "../../Components/ProductsList";
 import toast from "react-hot-toast";
+import {useDispatch, useSelector} from "react-redux";
+import {TProductState} from "../../Redux/reducers/Products/productsReducers";
+import {ThunkDispatch} from "redux-thunk";
+import {TProductActionHandlers} from "../../Redux/actions/Products/actionHandlerType";
+import {loadAllProducts} from "../../Redux/thunk/productThunk";
+import {allFetchRequest} from "../../Redux/actions/Products/productActions";
 
 const ProductsPage = () => {
-    const [products, setProducts] = useState([]);
-    const [change, setChange] = useState(false)
+    const {products: {data}, loading, reload} = useSelector((state: TProductState) => state)
+    const dispatch = useDispatch<ThunkDispatch<TProductState, any, TProductActionHandlers>>()
+    // const [products, setProducts] = useState([]);
+    // const [change, setChange] = useState(false)
 
     useEffect(() => {
-        toast.dismiss()
-        toast.loading('Please wait....')
-        fetch(`https://anxious-erin-shrug.cyclic.app/api/products`)
-            .then(res => res.json())
-            .then(data => {
-                setProducts(data?.products)
-                toast.dismiss();
-            })
-            .catch(err => console.log(err));
-    }, [change]);
+        dispatch(allFetchRequest())
+    }, []);
+
+    useEffect(() => {
+
+        reload && dispatch(loadAllProducts(1)).then(() => toast.dismiss())
+
+    }, [reload]);
 
     return (
         <div className={'container'}>
-            <ProductsList products={products} change={change} setChange={setChange}/>
+            <ProductsList products={data}/>
         </div>
     );
 };

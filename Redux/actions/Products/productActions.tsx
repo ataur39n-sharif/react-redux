@@ -1,6 +1,14 @@
 import {TProduct, TProducts} from "../../reducers/Products/productsReducers";
 import {productsActionTypes} from "../../actionTypes";
-import {TFetching, TGetAllProducts, TGetSingleProduct, THandleError, TPaginate} from "./actionHandlerType";
+import {
+    TDeleteProductRequest,
+    TDeleteProductSuccess,
+    TFetching,
+    TGetAllProducts,
+    TGetSingleProduct,
+    THandleError,
+    TPaginate
+} from "./actionHandlerType";
 
 export const allFetchRequest = (): TFetching => {
     return {
@@ -46,5 +54,24 @@ export const paginate = (pageNo: number): TPaginate => {
     return {
         type: productsActionTypes.PAGINATE_DATA,
         payload: pageNo
+    }
+}
+
+export const deleteProductRequest = (): TDeleteProductRequest => {
+    return {
+        type: productsActionTypes.DELETE_PRODUCT
+    }
+}
+
+export const deleteProductSuccess = (): TDeleteProductSuccess => {
+    return {
+        type: productsActionTypes.DELETE_PRODUCT_SUCCESS
+    }
+}
+
+export const deleteProductFailure = (message: string): THandleError => {
+    return {
+        type: productsActionTypes.DELETE_PRODUCT_FAILURE,
+        payload: message
     }
 }

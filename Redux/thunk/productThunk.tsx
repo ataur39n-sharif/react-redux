@@ -2,6 +2,8 @@ import axios from "axios";
 import {ThunkDispatch} from "redux-thunk";
 import {
     allProductsHandleError,
+    deleteProductFailure,
+    deleteProductSuccess,
     getAllProducts,
     getSingleProduct,
     singleProductHandleError
@@ -35,6 +37,18 @@ export const loadSingleProduct = (id: string) => {
             dispatch(getSingleProduct(response.data))
         } catch (e) {
             if (e instanceof Error) dispatch(singleProductHandleError(e.message))
+        }
+    }
+}
+
+
+export const deleteProduct = (id: string) => {
+    return async (dispatch: ThunkDispatch<TProductState, any, TProductActionHandlers>, getState: () => TProductState) => {
+        try {
+            const response = await axios.delete(`https://anxious-erin-shrug.cyclic.app/api/products/${id}`)
+            dispatch(deleteProductSuccess())
+        } catch (e) {
+            if (e instanceof Error) dispatch(deleteProductFailure(e.message))
         }
     }
 }

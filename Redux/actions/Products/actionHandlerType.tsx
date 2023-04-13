@@ -20,9 +20,23 @@ export type TPaginate = {
     payload: number
 }
 
+export type TDeleteProductRequest = {
+    type: typeof productsActionTypes.DELETE_PRODUCT
+}
+
+export type TDeleteProductSuccess = {
+    type: typeof productsActionTypes.DELETE_PRODUCT_SUCCESS
+}
+
 export type THandleError = {
-    type: typeof productsActionTypes.FETCH_PRODUCTS_FAILURE | productsActionTypes.FETCH_SINGLE_PRODUCT_FAILURE,
+    type: typeof productsActionTypes.FETCH_PRODUCTS_FAILURE | productsActionTypes.FETCH_SINGLE_PRODUCT_FAILURE | productsActionTypes.DELETE_PRODUCT_FAILURE,
     payload: string
 }
 
-export type TProductActionHandlers = TGetAllProducts | THandleError | TFetching | TGetSingleProduct
+export type TProductActionHandlers =
+    TGetAllProducts
+    | THandleError
+    | TFetching
+    | TGetSingleProduct
+    | TDeleteProductRequest
+    | TDeleteProductSuccess

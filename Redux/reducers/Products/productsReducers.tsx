@@ -49,7 +49,8 @@ export const productReducer = (state: TProductState = initialState, action: AnyA
     const {
         FETCH_PRODUCTS, FETCH_PRODUCTS_SUCCESS, FETCH_PRODUCTS_FAILURE,
         FETCH_SINGLE_PRODUCT, FETCH_SINGLE_PRODUCT_SUCCESS, FETCH_SINGLE_PRODUCT_FAILURE,
-        PAGINATE_DATA
+        PAGINATE_DATA, DELETE_PRODUCT, DELETE_PRODUCT_SUCCESS, DELETE_PRODUCT_FAILURE,
+        UPDATE_PRODUCT, UPDATE_PRODUCT_FAILURE, UPDATE_PRODUCT_SUCCESS
     } = productsActionTypes
 
     switch (type) {
@@ -67,6 +68,17 @@ export const productReducer = (state: TProductState = initialState, action: AnyA
                 selectedProduct: null,
                 loading: true,
                 error: null,
+                reload: true
+            }
+        case  DELETE_PRODUCT:
+            return {
+                ...state,
+                loading: true,
+            }
+        case  DELETE_PRODUCT_SUCCESS:
+            return {
+                ...state,
+                loading: false,
                 reload: true
             }
         case FETCH_PRODUCTS_SUCCESS:

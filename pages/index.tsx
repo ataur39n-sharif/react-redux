@@ -7,7 +7,7 @@ import {loadAllProducts} from "../Redux/thunk/productThunk";
 import {ThunkDispatch} from "redux-thunk";
 import {TProductActionHandlers} from "../Redux/actions/Products/actionHandlerType";
 import {allFetchRequest} from "../Redux/actions/Products/productActions";
-import toast from "react-hot-toast";
+import {customToast} from "../Utils/customToast";
 
 export default function Home() {
     const {products, loading, error, reload} = useSelector((state: TProductState) => state)
@@ -25,12 +25,14 @@ export default function Home() {
 
     useEffect(() => {
         if (loading) {
-            toast.loading('Data fetching...')
+            customToast.showLoading('Data fetching', 'fetchData')
+            // toast.loading('Data fetching...')
         } else if (error) {
-            toast.dismiss()
-            toast.error(error)
+            // toast.dismiss()
+            // toast.error(error)
+            customToast.showError(error, 'fetchData')
         } else {
-            toast.dismiss()
+            customToast.dismiss('fetchData')
         }
     }, [loading])
 

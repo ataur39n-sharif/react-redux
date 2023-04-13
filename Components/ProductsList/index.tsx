@@ -1,28 +1,39 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Table} from "react-bootstrap";
 import {FaRegEdit} from "react-icons/fa";
 import {RiDeleteBin6Fill} from "react-icons/ri";
-import axios from "axios";
 import {useRouter} from "next/router";
-import toast from "react-hot-toast";
+import {TProduct, TProductState} from "../../Redux/reducers/Products/productsReducers";
+import {useDispatch, useSelector} from "react-redux";
+import {ThunkDispatch} from "redux-thunk";
+import {TProductActionHandlers} from "../../Redux/actions/Products/actionHandlerType";
+import {deleteProduct} from "../../Redux/thunk/productThunk";
+import {deleteProductRequest} from "../../Redux/actions/Products/productActions";
+import {customToast} from "../../Utils/customToast";
 
-const ProductsList = ({products, change, setChange}: {
-    products: any[],
-    change: boolean,
-    setChange: any
+const ProductsList = ({products}: {
+    products: TProduct[],
 }) => {
 
     const router = useRouter()
+    const productState = useSelector((state: TProductState) => state)
+    const dispatch = useDispatch<ThunkDispatch<TProductState, any, TProductActionHandlers>>()
+
+    useEffect(() => {
+        if (productState.loading) {
+            customToast.showLoading('Please wait...', 'deletePd')
+        }
+        // else {
+        //     customToast.dismiss('deletePd')
+        // }
+    }, [productState.loading])
 
     const handleDelete = async (id: string) => {
         try {
-            toast.loading('please wait...');
-            const response = await axios.delete(`https://anxious-erin-shrug.cyclic.app/api/products/${id}`)
-            toast.dismiss()
-            toast.success('Successfully deleted')
-            setChange(!change)
+            dispatch(deleteProductRequest())
+            dispatch(deleteProduct(id)).then(() => customToast.success('Deleted successfully', 'deletePd'))
         } catch (e) {
-            if (e instanceof Error) console.log(e.message)
+            if (e instanceof Error) customToast.showError(e.message, 'deletePd')
         }
     }
 
