@@ -19,19 +19,9 @@ const ProductsList = ({products}: {
     const productState = useSelector((state: TProductState) => state)
     const dispatch = useDispatch<ThunkDispatch<TProductState, any, TProductActionHandlers>>()
 
-    useEffect(() => {
-        if (productState.loading) {
-            customToast.showLoading('Please wait...', 'deletePd')
-        }
-    }, [productState.loading])
-
     const handleDelete = async (id: string) => {
-        try {
-            dispatch(deleteProductRequest())
-            dispatch(deleteProduct(id)).then(() => customToast.success('Deleted successfully', 'deletePd'))
-        } catch (e) {
-            if (e instanceof Error) customToast.showError(e.message, 'deletePd')
-        }
+        dispatch(deleteProductRequest())
+        dispatch(deleteProduct(id))
     }
 
     return (

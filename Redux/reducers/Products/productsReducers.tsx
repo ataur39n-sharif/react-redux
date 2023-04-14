@@ -27,19 +27,17 @@ export type TProducts = {
 /*type of product state*/
 export type TProductState = {
     products: TProducts,
-    selectedProduct: TProduct | null,
     message: string | null,
     loading: boolean,
     error: string | null,
     reload: boolean
 }
 
-export const defaultProducts = {data: [], limit: 4, page: 1}
+export const defaultProducts = {data: [], limit: 8, page: 1}
 
 /* initial products state*/
 const initialState: TProductState = {
     products: defaultProducts,
-    selectedProduct: null,
     message: null,
     loading: false,
     error: null,
@@ -59,7 +57,6 @@ export const productReducer = (state: TProductState = initialState, action: AnyA
         case FETCH_SINGLE_PRODUCT :
             return {
                 ...state,
-                selectedProduct: null,
                 loading: true,
                 error: null
             }
@@ -67,7 +64,6 @@ export const productReducer = (state: TProductState = initialState, action: AnyA
             return {
                 ...state,
                 products: defaultProducts,
-                selectedProduct: null,
                 loading: true,
                 error: null,
                 reload: true
@@ -76,6 +72,7 @@ export const productReducer = (state: TProductState = initialState, action: AnyA
             return {
                 ...state,
                 loading: true,
+                reload: false
             }
         case  DELETE_PRODUCT_SUCCESS:
             return {
@@ -101,14 +98,12 @@ export const productReducer = (state: TProductState = initialState, action: AnyA
         case FETCH_SINGLE_PRODUCT_SUCCESS:
             return {
                 ...state,
-                selectedProduct: payload,
                 loading: false,
                 error: null
             }
         case FETCH_SINGLE_PRODUCT_FAILURE:
             return {
                 ...state,
-                selectedProduct: null,
                 loading: false,
                 error: payload
             }

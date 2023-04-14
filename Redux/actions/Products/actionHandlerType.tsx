@@ -12,7 +12,6 @@ export type TGetAllProducts = {
 
 export type TGetSingleProduct = {
     type: typeof productsActionTypes.FETCH_SINGLE_PRODUCT_SUCCESS,
-    payload: TProduct
 }
 
 export type TPaginate = {

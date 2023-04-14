@@ -31,7 +31,6 @@ export const getAllProducts = (data: TProducts): TGetAllProducts => {
 export const getSingleProduct = (data: TProduct): TGetSingleProduct => {
     return {
         type: productsActionTypes.FETCH_SINGLE_PRODUCT_SUCCESS,
-        payload: data
     }
 }
 

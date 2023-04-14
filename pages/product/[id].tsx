@@ -1,39 +1,44 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import Image from "next/image";
 import {Button} from "react-bootstrap";
 import {useRouter} from "next/router";
 import {IoArrowBackCircle} from "react-icons/io5";
 import {useDispatch, useSelector} from "react-redux";
-import {TProductState} from "../../Redux/reducers/Products/productsReducers";
+import {TProduct, TProductState} from "../../Redux/reducers/Products/productsReducers";
 import {loadSingleProduct} from "../../Redux/thunk/productThunk";
 import {ThunkDispatch} from "redux-thunk";
 import {TProductActionHandlers} from "../../Redux/actions/Products/actionHandlerType";
 import {singleFetchRequest} from "../../Redux/actions/Products/productActions";
-import toast from "react-hot-toast";
-import {GetServerSideProps} from "next";
 
-const ProductById = ({data: fromServer}: { data: any }) => {
+const ProductById = () => {
 
     const router = useRouter()
     const {id} = router.query
-
-    const {selectedProduct: data, loading} = useSelector((state: TProductState) => state)
+    const [data, setData] = useState<TProduct>()
+    const {loading} = useSelector((state: TProductState) => state)
     const dispatch = useDispatch<ThunkDispatch<TProductState, any, TProductActionHandlers>>()
 
     useEffect(() => {
         dispatch(singleFetchRequest())
-        typeof (id) === 'string' && dispatch(loadSingleProduct(id))
+        typeof (id) === 'string' && fetchData(id)
     }, [id])
 
-    useEffect(() => {
-        if (loading) {
-            toast.loading('Please wait...')
-        } else {
-            toast.dismiss()
-        }
-    }, [loading])
+    const fetchData = async (id: string) => {
+        // customToast.showLoading('Please wait ...', 'product')
+        const pd = await dispatch(loadSingleProduct(id))
+        pd && setData(pd)
+        // customToast.dismiss('product')
+    }
 
-    console.log('product state', data)
+    // useEffect(() => {
+    //     if (loading) {
+    //         toast.loading('Please wait...')
+    //     } else {
+    //         toast.dismiss()
+    //     }
+    // }, [loading])
+
+    console.log('product state', loading)
 
     return (
         <div className={'d-flex align-items-center'} style={{minHeight: '90vh'}}>

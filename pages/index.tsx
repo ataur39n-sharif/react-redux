@@ -3,11 +3,11 @@ import Products from "../Components/Products";
 import {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {TProductState} from "../Redux/reducers/Products/productsReducers";
-import {loadAllProducts} from "../Redux/thunk/productThunk";
 import {ThunkDispatch} from "redux-thunk";
 import {TProductActionHandlers} from "../Redux/actions/Products/actionHandlerType";
 import {allFetchRequest} from "../Redux/actions/Products/productActions";
 import {customToast} from "../Utils/customToast";
+import {loadProducts} from "../Redux/thunk/productThunk";
 
 export default function Home() {
     const {products, loading, error, reload} = useSelector((state: TProductState) => state)
@@ -20,7 +20,7 @@ export default function Home() {
     }, [])
 
     useEffect(() => {
-        page && reload && dispatch(loadAllProducts(page, 8))
+        page && reload && dispatch(loadProducts(page, 8))
     }, [reload])
 
     useEffect(() => {
