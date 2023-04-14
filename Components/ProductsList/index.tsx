@@ -23,9 +23,6 @@ const ProductsList = ({products}: {
         if (productState.loading) {
             customToast.showLoading('Please wait...', 'deletePd')
         }
-        // else {
-        //     customToast.dismiss('deletePd')
-        // }
     }, [productState.loading])
 
     const handleDelete = async (id: string) => {

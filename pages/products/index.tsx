@@ -11,17 +11,13 @@ import {allFetchRequest} from "../../Redux/actions/Products/productActions";
 const ProductsPage = () => {
     const {products: {data}, loading, reload} = useSelector((state: TProductState) => state)
     const dispatch = useDispatch<ThunkDispatch<TProductState, any, TProductActionHandlers>>()
-    // const [products, setProducts] = useState([]);
-    // const [change, setChange] = useState(false)
 
     useEffect(() => {
         dispatch(allFetchRequest())
     }, []);
 
     useEffect(() => {
-
         reload && dispatch(loadAllProducts(1)).then(() => toast.dismiss())
-
     }, [reload]);
 
     return (

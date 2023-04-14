@@ -8,7 +8,7 @@ import {
     getSingleProduct,
     singleProductHandleError
 } from "../actions/Products/productActions";
-import {TProductState} from "../reducers/Products/productsReducers";
+import {TProduct, TProductState} from "../reducers/Products/productsReducers";
 import {TProductActionHandlers} from "../actions/Products/actionHandlerType";
 
 export const loadAllProducts = (pageNo: number, dataLimit?: number) => {
@@ -41,6 +41,12 @@ export const loadSingleProduct = (id: string) => {
     }
 }
 
+export const createProduct = (data: TProduct) => {
+    return async (dispatch: ThunkDispatch<TProductState, any, TProductActionHandlers>) => {
+        const {data: newPd} = await axios.post('https://anxious-erin-shrug.cyclic.app/api/products/', data)
+        return newPd
+    }
+}
 
 export const deleteProduct = (id: string) => {
     return async (dispatch: ThunkDispatch<TProductState, any, TProductActionHandlers>, getState: () => TProductState) => {

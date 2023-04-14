@@ -1,39 +1,40 @@
 import React from 'react';
 import {useForm} from "react-hook-form";
-import axios from "axios";
 import ProductInputForm from "../Components/Forms/ProductInputForm";
 import {useRouter} from "next/router";
-import toast from "react-hot-toast";
+import {createProduct} from "../Redux/thunk/productThunk";
+import {useDispatch} from "react-redux";
+import {ThunkDispatch} from "redux-thunk";
+import {TProduct, TProductState} from "../Redux/reducers/Products/productsReducers";
+import {TProductActionHandlers} from "../Redux/actions/Products/actionHandlerType";
+import {customToast} from "../Utils/customToast";
 
 const AddProduct = () => {
+    const router = useRouter()
     const {
         register,
         handleSubmit,
-        watch,
         reset,
-        formState: {errors}
     } = useForm();
-    const router = useRouter()
-    const onSubmit = async (data: any) => {
+    const dispatch = useDispatch<ThunkDispatch<TProductState, any, TProductActionHandlers>>()
+    const onSubmit = async (data: TProduct) => {
         try {
-            toast.loading('Please wait...')
-            const addProduct = await axios.post('https://anxious-erin-shrug.cyclic.app/api/products/', {
+            customToast.showLoading('Creating.....', 'createPd')
+            const newPd = await dispatch(createProduct({
                 title: data.title,
                 description: data.description,
-                price: Number(data.price),
+                price: data.price,
                 category: data.category,
-                rating: Number(data.rating),
-                stock: Number(data.stock),
+                rating: data.rating,
+                stock: data.stock,
                 brand: data.brand,
-                discountPercentage: Number(data.discountPercentage)
-            })
-            toast.dismiss()
-            toast.success('New Product Added')
-            await router.push(`/product/${addProduct.data._id}`)
-            console.log(addProduct)
+                discountPercentage: data.discountPercentage
+            }))
+            customToast.success('Successfully Created.', 'createPd')
             reset()
+            await router.push(`/product/${newPd._id}`)
         } catch (e) {
-            if (e instanceof Error) alert(e.message)
+            if (e instanceof Error) customToast.showError(e.message, 'createPd')
         }
     }
 

@@ -3,18 +3,20 @@ import {AnyAction} from "redux";
 
 /*product type*/
 export type TProduct = {
-    _id: string,
-    thumbnail: string,
+    _id?: string,
+    thumbnail?: string,
     title: string,
     description: string,
     price: number | null,
     category: string | null,
     stock: number | null,
-    images: string[] | null,
+    images?: string[] | null,
     discountPercentage: number | null,
     rating: number | null,
     brand: string
 }
+
+
 /*products type*/
 export type TProducts = {
     data: TProduct[],
