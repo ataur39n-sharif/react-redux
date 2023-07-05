@@ -30,7 +30,12 @@ export default function Cart({products}) {
                                                     Shopping Cart
                                                 </MDBTypography>
                                                 <MDBTypography className="mb-0 text-muted">
-                                                    {(products as []).length} items
+                                                    <select className="select p-2 rounded bg-grey" style={{ width: "100%" }}>
+                                                        <option value={5}>5 items</option>
+                                                        <option value={10}>10 items</option>
+                                                        <option value={15}>15 items</option>
+                                                        <option value={20}>20 items</option>
+                                                    </select>
                                                 </MDBTypography>
                                             </div>
 
