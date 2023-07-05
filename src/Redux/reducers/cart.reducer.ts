@@ -1,15 +1,12 @@
 import {AnyAction} from "redux";
 import {CartActionTypes} from "../actionTypes/cart.actionTypes.ts";
+import {IProduct} from "./products.reducer.ts";
 
-export type TCartProduct={
-    image:string,
-    title:string,
-    subtitle:string,
-    price:number,
-    quantity:number
+export interface ICartProduct extends IProduct{
+    quantity: number
 }
 export type TCartState={
-    products:TCartProduct[],
+    products:ICartProduct[],
     shippingCost:number,
     discount: number,
     subTotal: number,

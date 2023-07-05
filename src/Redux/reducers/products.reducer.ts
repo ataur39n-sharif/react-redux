@@ -1,6 +1,6 @@
 import {AnyAction} from "redux";
 
-export type TProduct= {
+export type IProduct= {
     _id?: string;
     title?: string;
     description?: string;
@@ -15,7 +15,7 @@ export type TProduct= {
 }
 
 export type TProductState={
-    products: TProduct[]
+    products: IProduct[]
 }
 
 const initialState:TProductState={

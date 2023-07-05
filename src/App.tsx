@@ -8,9 +8,9 @@ import {TRootState} from "./Redux/reducers/rootReducer.ts";
 
 function App() {
 const state = useSelector((store:TRootState) => store.cart)
-    console.log({state})
+    console.log(state.products)
     const [products,setProducts] = useState([])
-    console.log(state)
+    console.log(state) 
     useEffect(()=>{
         axios.get(`https://anxious-erin-shrug.cyclic.app/api/products?limit=4&page=${Math.round(Math.random()*10)}`)
             .then(response => setProducts(response.data.products))
