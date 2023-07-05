@@ -22,6 +22,12 @@ const initialState:TCartState={
 
 export const CartReducers =(state=initialState,action:AnyAction)=>{
     switch(action.type){
+        case CartActionTypes.LOAD_CART_PRODUCTS:
+            console.log(action.payload)
+            return {
+                ...state,
+                products: action.payload
+            }
         case CartActionTypes.ADD_TO_CART:
             return {
                 ...state,
