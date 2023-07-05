@@ -14,10 +14,9 @@ function App() {
     useEffect(() => {
         dispatch(fetchProducts())
     }, [])
-
     return (
         <>
-            <Cart products={state.products}/>
+            <Cart products={state.products.sort((a, b) => a.position - b.position)}/>
         </>
     )
 }
