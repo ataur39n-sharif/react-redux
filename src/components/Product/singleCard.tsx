@@ -1,7 +1,8 @@
 import {MDBBtn, MDBCardImage, MDBCol, MDBIcon, MDBInput, MDBRow, MDBTooltip, MDBTypography} from "mdb-react-ui-kit";
 
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
 const SingleCard = (fields:any) => {
-    console.log(fields)
     return (
         <MDBRow className="mb-4 d-flex justify-content-between align-items-center">
             <MDBCol md="2" lg="2" xl="2">

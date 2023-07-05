@@ -8,14 +8,14 @@ export type TCartProduct={
     price:number,
     quantity:number
 }
-export type TInitialState={
+export type TInitialCartState={
     products:TCartProduct[],
     shippingCost:number,
     discount: number,
     subTotal: number,
     total: number,
 }
-const initialState:TInitialState={
+const initialState:TInitialCartState={
     products:[],
     subTotal:0,
     shippingCost:0,
