@@ -1,0 +1,9 @@
+export const CartActionTypes={
+    "ADD_TO_CART": "Add_To_Cart",
+    "REMOVE_FROM_CART": "REMOVE_FROM_CART",
+    "INCREMENT":"INCREMENT",
+    "DECREMENT":"DECREMENT",
+    "APPLY_COUPON":"APPLY_COUPON",
+    "ADD_SHIPPING_COST": "ADD_SHIPPING_COST",
+}
+
