@@ -2,12 +2,13 @@ import 'mdb-react-ui-kit/dist/css/mdb.min.css';
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import Cart from "./Cart.tsx";
 import {useSelector} from "react-redux";
-import {TInitialCartState} from "./Redux/reducers/cart.reducer.ts";
 import {useEffect, useState} from "react";
 import axios from "axios";
+import {TRootState} from "./Redux/reducers/rootReducer.ts";
 
 function App() {
-const state = useSelector((store:TInitialCartState) => store)
+const state = useSelector((store:TRootState) => store.cart)
+    console.log({state})
     const [products,setProducts] = useState([])
     console.log(state)
     useEffect(()=>{
@@ -15,8 +16,7 @@ const state = useSelector((store:TInitialCartState) => store)
             .then(response => setProducts(response.data.products))
             .catch(err => console.log(err))
     },[])
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
+
     return (
       <>
           <Cart products={products} />
