@@ -1,28 +1,28 @@
 import {AnyAction} from "redux";
 
-export type IProduct= {
-    _id?: string;
-    title?: string;
+export type IProduct = {
+    _id: string;
+    title: string;
     description?: string;
-    price?: number;
+    price: number;
     discountPercentage?: number;
     rating?: number;
     stock?: number;
-    brand?: string;
-    category?: string;
-    thumbnail?: string;
+    brand: string;
+    category: string;
+    thumbnail: string;
     images?: string[];
 }
 
-export type TProductState={
+export type TProductState = {
     products: IProduct[]
 }
 
-const initialState:TProductState={
-    products :[]
+const initialState: TProductState = {
+    products: []
 }
 
-export const ProductsReducer =(state=initialState, action:AnyAction)=>{
+export const ProductsReducer = (state = initialState, action: AnyAction) => {
     switch (action.type) {
         default :
             return state

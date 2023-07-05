@@ -50,7 +50,7 @@ export const CartReducers = (state = initialState, action: AnyAction) => {
             }
         case CartActionTypes.DECREMENT_QUANTITY:
             updatedList = state.products.map(product => {
-                if (product._id === payload._id) {
+                if (product._id === payload._id && product.quantity > 0) {
                     return {
                         ...product,
                         quantity: product.quantity - 1
@@ -66,7 +66,7 @@ export const CartReducers = (state = initialState, action: AnyAction) => {
             }
         case CartActionTypes.SET_QUANTITY:
             updatedList = state.products.map(product => {
-                if (product._id === payload._id) {
+                if (product._id === payload._id && payload.quantity > 0) {
                     return {
                         ...product,
                         quantity: payload.quantity
