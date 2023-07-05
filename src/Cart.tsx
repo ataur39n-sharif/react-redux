@@ -11,9 +11,9 @@ import {
 import SingleCard from "./components/Product/singleCard.tsx";
 
 
-export default function Cart() {
-
-    const fields:any[] =[{},{},{},{}];
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+export default function Cart({products}) {
 
     return (
         <section className="h-100 h-custom" style={{ backgroundColor: "#eee" }}>
@@ -30,13 +30,13 @@ export default function Cart() {
                                                     Shopping Cart
                                                 </MDBTypography>
                                                 <MDBTypography className="mb-0 text-muted">
-                                                    3 items
+                                                    {(products as []).length} items
                                                 </MDBTypography>
                                             </div>
 
                                             <hr className="my-4" />
                                             {
-                                                fields.map((field:any,i) =>(
+                                                (products as any[]).map((field:any,i) =>(
                                                     <SingleCard key={i} fields={field}/>
                                                 ))
                                             }
@@ -52,23 +52,16 @@ export default function Cart() {
 
                                             <hr className="my-4" />
 
-                                            <div className="d-flex justify-content-between mb-4">
-                                                <MDBTypography tag="h5" className="text-uppercase">
-                                                    items 3
-                                                </MDBTypography>
-                                                <MDBTypography tag="h5">€ 132.00</MDBTypography>
-                                            </div>
-
                                             <MDBTypography tag="h5" className="text-uppercase mb-3">
                                                 Shipping
                                             </MDBTypography>
 
                                             <div className="mb-4 pb-2">
                                                 <select className="select p-2 rounded bg-grey" style={{ width: "100%" }}>
-                                                    <option value="1">Standard-Delivery- €5.00</option>
-                                                    <option value="2">Two</option>
-                                                    <option value="3">Three</option>
-                                                    <option value="4">Four</option>
+                                                    <option value="5">Regular-Delivery- $5.00</option>
+                                                    <option value="15">Standard-Delivery- $15.00</option>
+                                                    <option value="25">Home-Delivery- $25.00</option>
+                                                    <option value="35">Premium-Delivery- $35.00</option>
                                                 </select>
                                             </div>
 
@@ -82,15 +75,34 @@ export default function Cart() {
 
                                             <hr className="my-4" />
 
+                                            <div className="d-flex justify-content-between ">
+                                                <MDBTypography tag="h6" className="text-uppercase">
+                                                    Subtotal
+                                                </MDBTypography>
+                                                <MDBTypography tag="h6">$ 13.00</MDBTypography>
+                                            </div>
+                                            <div className="d-flex justify-content-between ">
+                                                <MDBTypography tag="h6" className="text-uppercase">
+                                                    Shipping
+                                                </MDBTypography>
+                                                <MDBTypography tag="h6">$ 0.00</MDBTypography>
+                                            </div>
+                                            <div className="d-flex justify-content-between">
+                                                <MDBTypography tag="h6" className="text-uppercase">
+                                                    discount
+                                                </MDBTypography>
+                                                <MDBTypography tag="h6">$ 00</MDBTypography>
+                                            </div>
+                                            <hr className="my-4" />
                                             <div className="d-flex justify-content-between mb-5">
                                                 <MDBTypography tag="h5" className="text-uppercase">
                                                     Total price
                                                 </MDBTypography>
-                                                <MDBTypography tag="h5">€ 137.00</MDBTypography>
+                                                <MDBTypography tag="h5">$ 137.00</MDBTypography>
                                             </div>
 
                                             <MDBBtn color="dark" block size="lg">
-                                                Register
+                                                Go to Checkout
                                             </MDBBtn>
                                         </div>
                                     </MDBCol>
