@@ -16,7 +16,7 @@ function App() {
     }, [])
     return (
         <>
-            <Cart products={state.products.sort((a, b) => a.position - b.position)}/>
+            <Cart state={state} products={state.products.sort((a, b) => a.position - b.position)}/>
         </>
     )
 }

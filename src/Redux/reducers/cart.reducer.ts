@@ -25,12 +25,21 @@ const initialState: TCartState = {
 
 export const CartReducers = (state = initialState, action: AnyAction) => {
     const {type, payload} = action
-    let updatedList;
+    let updatedList: ICartProduct[];
+    let updateSubTotal: number;
+    let updateTotal: number;
     switch (type) {
         case CartActionTypes.LOAD_CART_PRODUCTS:
+            updateSubTotal = (payload as ICartProduct[]).reduce((accumulator, product) => {
+                return accumulator + product.price * product.quantity;
+            }, 0);
+
+            updateTotal = updateSubTotal + state.shippingCost - state.discount
             return {
                 ...state,
-                products: payload
+                products: payload,
+                subTotal: updateSubTotal,
+                total: updateTotal
             }
         case CartActionTypes.INCREMENT_QUANTITY:
             updatedList = state.products.map(product => {
@@ -44,9 +53,16 @@ export const CartReducers = (state = initialState, action: AnyAction) => {
                 }
             })
 
+            updateSubTotal = updatedList.reduce((accumulator, product) => {
+                return accumulator + product.price * product.quantity;
+            }, 0);
+
+            updateTotal = updateSubTotal + state.shippingCost - state.discount
             return {
                 ...state,
-                products: updatedList
+                products: updatedList,
+                subTotal: updateSubTotal,
+                total: updateTotal
             }
         case CartActionTypes.DECREMENT_QUANTITY:
             updatedList = state.products.map(product => {
@@ -59,10 +75,17 @@ export const CartReducers = (state = initialState, action: AnyAction) => {
                     return product
                 }
             })
+            updateSubTotal = updatedList.reduce((accumulator, product) => {
+                return accumulator + product.price * product.quantity;
+            }, 0);
+
+            updateTotal = updateSubTotal + state.shippingCost - state.discount
 
             return {
                 ...state,
-                products: updatedList
+                products: updatedList,
+                subTotal: updateSubTotal,
+                total: updateTotal
             }
         case CartActionTypes.SET_QUANTITY:
             updatedList = state.products.map(product => {
@@ -75,9 +98,23 @@ export const CartReducers = (state = initialState, action: AnyAction) => {
                     return product
                 }
             })
+            updateSubTotal = updatedList.reduce((accumulator, product) => {
+                return accumulator + product.price * product.quantity;
+            }, 0);
+
+            updateTotal = updateSubTotal + state.shippingCost - state.discount
             return {
                 ...state,
-                products: updatedList
+                products: updatedList,
+                subTotal: updateSubTotal,
+                total: updateTotal
+            }
+        case CartActionTypes.ADD_SHIPPING_COST:
+            updateTotal = state.subTotal + Number(payload)
+            return {
+                ...state,
+                shippingCost: Number(payload),
+                total: updateTotal
             }
         case CartActionTypes.ADD_TO_CART:
             return {

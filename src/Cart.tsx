@@ -1,26 +1,20 @@
-import {
-    MDBBtn,
-    MDBCard,
-    MDBCardBody,
-    MDBCol,
-    MDBContainer,
-    MDBInput,
-    MDBRow,
-    MDBTypography,
-} from "mdb-react-ui-kit";
+import {MDBBtn, MDBCard, MDBCardBody, MDBCol, MDBContainer, MDBInput, MDBRow, MDBTypography,} from "mdb-react-ui-kit";
 import SingleCard from "./components/Product/singleCard.tsx";
+import {ICartProduct, TCartState} from "./Redux/reducers/cart.reducer.ts";
+import {CartActionTypes} from "./Redux/actionTypes/cart.actionTypes.ts";
+import {useDispatch} from "react-redux";
 
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-export default function Cart({products}) {
-
+export default function Cart({state, products}: { state: TCartState, products: ICartProduct[] }) {
+    const dispatch = useDispatch()
     return (
-        <section className="h-100 h-custom" style={{ backgroundColor: "#eee" }}>
+        <section className="h-100 h-custom" style={{backgroundColor: "#eee"}}>
             <MDBContainer className="py-5 h-100">
                 <MDBRow className="justify-content-center align-items-center h-100">
                     <MDBCol size="12">
-                        <MDBCard className="card-registration card-registration-2" style={{ borderRadius: "15px" }}>
+                        <MDBCard className="card-registration card-registration-2" style={{borderRadius: "15px"}}>
                             <MDBCardBody className="p-0">
                                 <MDBRow className="g-0">
                                     <MDBCol lg="8">
@@ -30,7 +24,8 @@ export default function Cart({products}) {
                                                     Shopping Cart
                                                 </MDBTypography>
                                                 <MDBTypography className="mb-0 text-muted">
-                                                    <select className="select p-2 rounded bg-grey" style={{ width: "100%" }}>
+                                                    <select className="select p-2 rounded bg-grey"
+                                                            style={{width: "100%"}}>
                                                         <option value={5}>5 items</option>
                                                         <option value={10}>10 items</option>
                                                         <option value={15}>15 items</option>
@@ -39,13 +34,13 @@ export default function Cart({products}) {
                                                 </MDBTypography>
                                             </div>
 
-                                            <hr className="my-4" />
+                                            <hr className="my-4"/>
                                             {
-                                                (products as any[]).map((field:any,i) =>(
+                                                (products as any[]).map((field: any, i) => (
                                                     <SingleCard key={i} fields={field}/>
                                                 ))
                                             }
-                                            <hr className="my-4" />
+                                            <hr className="my-4"/>
 
                                         </div>
                                     </MDBCol>
@@ -55,14 +50,22 @@ export default function Cart({products}) {
                                                 Summary
                                             </MDBTypography>
 
-                                            <hr className="my-4" />
+                                            <hr className="my-4"/>
 
                                             <MDBTypography tag="h5" className="text-uppercase mb-3">
                                                 Shipping
                                             </MDBTypography>
 
                                             <div className="mb-4 pb-2">
-                                                <select className="select p-2 rounded bg-grey" style={{ width: "100%" }}>
+                                                <select
+                                                    className="select p-2 rounded bg-grey"
+                                                    style={{width: "100%"}}
+                                                    onChange={(e) => dispatch({
+                                                        type: CartActionTypes.ADD_SHIPPING_COST,
+                                                        payload: e.target.value
+                                                    })}
+                                                >
+                                                    <option value="0">--Select Delivery type--</option>
                                                     <option value="5">Regular-Delivery- $5.00</option>
                                                     <option value="15">Standard-Delivery- $15.00</option>
                                                     <option value="25">Home-Delivery- $25.00</option>
@@ -75,35 +78,35 @@ export default function Cart({products}) {
                                             </MDBTypography>
 
                                             <div className="mb-5">
-                                                <MDBInput size="lg" label="Enter your code" />
+                                                <MDBInput size="lg" label="Enter your code"/>
                                             </div>
 
-                                            <hr className="my-4" />
+                                            <hr className="my-4"/>
 
                                             <div className="d-flex justify-content-between ">
                                                 <MDBTypography tag="h6" className="text-uppercase">
                                                     Subtotal
                                                 </MDBTypography>
-                                                <MDBTypography tag="h6">$ 13.00</MDBTypography>
+                                                <MDBTypography tag="h6">$ {state.subTotal}</MDBTypography>
                                             </div>
                                             <div className="d-flex justify-content-between ">
                                                 <MDBTypography tag="h6" className="text-uppercase">
                                                     Shipping
                                                 </MDBTypography>
-                                                <MDBTypography tag="h6">$ 0.00</MDBTypography>
+                                                <MDBTypography tag="h6">$ {state.shippingCost}</MDBTypography>
                                             </div>
                                             <div className="d-flex justify-content-between">
                                                 <MDBTypography tag="h6" className="text-uppercase">
                                                     discount
                                                 </MDBTypography>
-                                                <MDBTypography tag="h6">$ 00</MDBTypography>
+                                                <MDBTypography tag="h6">$ {state.discount}</MDBTypography>
                                             </div>
-                                            <hr className="my-4" />
+                                            <hr className="my-4"/>
                                             <div className="d-flex justify-content-between mb-5">
                                                 <MDBTypography tag="h5" className="text-uppercase">
                                                     Total price
                                                 </MDBTypography>
-                                                <MDBTypography tag="h5">$ 137.00</MDBTypography>
+                                                <MDBTypography tag="h5">$ {state.total}</MDBTypography>
                                             </div>
 
                                             <MDBBtn color="dark" block size="lg">

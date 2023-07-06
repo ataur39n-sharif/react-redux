@@ -7,7 +7,6 @@ import {CartActionTypes} from "../../Redux/actionTypes/cart.actionTypes.ts";
 const SingleCard = ({fields}) => {
     const dispatch = useDispatch()
     const {brand, category, price, thumbnail, _id, quantity} = fields;
-    console.log({_id, quantity})
     return (
         <MDBRow className="mb-4 d-flex justify-content-between align-items-center">
             <MDBCol md="2" lg="2" xl="2">
