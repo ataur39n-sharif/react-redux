@@ -12,7 +12,7 @@ function App() {
     const state = useSelector((store: TRootState) => store.cart)
     const dispatch = useDispatch<ThunkDispatch<TRootState, any, AnyAction>>()
     useEffect(() => {
-        dispatch(fetchProducts())
+        dispatch(fetchProducts(5))
     }, [])
     return (
         <>
