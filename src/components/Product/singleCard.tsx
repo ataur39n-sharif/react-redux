@@ -1,4 +1,4 @@
-import {MDBBtn, MDBCardImage, MDBCol, MDBIcon, MDBInput, MDBRow, MDBTooltip, MDBTypography} from "mdb-react-ui-kit";
+import {MDBBtn, MDBCardImage, MDBCol, MDBIcon, MDBInput, MDBRow, MDBTypography} from "mdb-react-ui-kit";
 import {useDispatch} from "react-redux";
 import {CartActionTypes} from "../../Redux/actionTypes/cart.actionTypes.ts";
 
@@ -58,13 +58,14 @@ const SingleCard = ({fields}) => {
                     ${price * quantity}
                 </MDBTypography>
             </MDBCol>
-            <MDBCol md="1" lg="1" xl="1" className="text-end" onClick={() => console.log('delete clicked')}>
-                <MDBTooltip
-                    wrapperProps={{size: "sm"}} wrapperClass="me-1 mb-2"
-                    title="Remove item"
-                >
+            <MDBCol md="1" lg="1" xl="1" className="text-end">
+                <MDBBtn className="px-3 me-2"
+                        onClick={() => dispatch({
+                            type: CartActionTypes.REMOVE_FROM_CART,
+                            payload: _id
+                        })}>
                     <MDBIcon fas icon="trash"/>
-                </MDBTooltip>
+                </MDBBtn>
             </MDBCol>
         </MDBRow>
 

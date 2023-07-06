@@ -3,12 +3,16 @@ import SingleCard from "./components/Product/singleCard.tsx";
 import {ICartProduct, TCartState} from "./Redux/reducers/cart.reducer.ts";
 import {CartActionTypes} from "./Redux/actionTypes/cart.actionTypes.ts";
 import {useDispatch} from "react-redux";
+import {fetchProducts} from "./Redux/thunk/product/product.thunk.ts";
+import {ThunkDispatch} from "redux-thunk";
+import {TRootState} from "./Redux/reducers/rootReducer.ts";
+import {AnyAction} from "redux";
 
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 export default function Cart({state, products}: { state: TCartState, products: ICartProduct[] }) {
-    const dispatch = useDispatch()
+    const dispatch = useDispatch<ThunkDispatch<TRootState, any, AnyAction>>()
     return (
         <section className="h-100 h-custom" style={{backgroundColor: "#eee"}}>
             <MDBContainer className="py-5 h-100">
@@ -24,8 +28,12 @@ export default function Cart({state, products}: { state: TCartState, products: I
                                                     Shopping Cart
                                                 </MDBTypography>
                                                 <MDBTypography className="mb-0 text-muted">
-                                                    <select className="select p-2 rounded bg-grey"
-                                                            style={{width: "100%"}}>
+                                                    <select
+                                                        className="select p-2 rounded bg-grey"
+                                                        style={{width: "100%"}}
+                                                        onChange={(e) => dispatch(fetchProducts(Number(e.target.value)))}
+                                                    >
+                                                        <option value={undefined}>Default</option>
                                                         <option value={5}>5 items</option>
                                                         <option value={10}>10 items</option>
                                                         <option value={15}>15 items</option>
@@ -78,7 +86,13 @@ export default function Cart({state, products}: { state: TCartState, products: I
                                             </MDBTypography>
 
                                             <div className="mb-5">
-                                                <MDBInput size="lg" label="Enter your code"/>
+                                                <MDBInput size="lg"
+                                                          label="Enter code : FLAT20"
+                                                          onChange={(e) => dispatch({
+                                                              type: CartActionTypes.APPLY_COUPON,
+                                                              payload: e.target.value
+                                                          })}
+                                                />
                                             </div>
 
                                             <hr className="my-4"/>
