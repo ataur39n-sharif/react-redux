@@ -45,7 +45,7 @@ export const CartReducers = (state = initialState, action: AnyAction) => {
                 products: payload,
                 subTotal: updateSubTotal,
                 total: updateTotal,
-                discount: updateDiscount
+                discount: Number(updateDiscount.toFixed(2))
             }
         case CartActionTypes.INCREMENT_QUANTITY:
             updatedList = state.products.map(product => {
@@ -70,7 +70,7 @@ export const CartReducers = (state = initialState, action: AnyAction) => {
                 products: updatedList,
                 subTotal: updateSubTotal,
                 total: updateTotal,
-                discount: updateDiscount
+                discount: Number(updateDiscount.toFixed(2))
             }
         case CartActionTypes.DECREMENT_QUANTITY:
             updatedList = state.products.map(product => {
@@ -96,7 +96,7 @@ export const CartReducers = (state = initialState, action: AnyAction) => {
                 products: updatedList,
                 subTotal: updateSubTotal,
                 total: updateTotal,
-                discount: updateDiscount
+                discount: Number(updateDiscount.toFixed(2))
             }
         case CartActionTypes.SET_QUANTITY:
             updatedList = state.products.map(product => {
@@ -121,7 +121,7 @@ export const CartReducers = (state = initialState, action: AnyAction) => {
                 products: updatedList,
                 subTotal: updateSubTotal,
                 total: updateTotal,
-                discount: updateDiscount
+                discount: Number(updateDiscount.toFixed(2))
             }
         case CartActionTypes.ADD_SHIPPING_COST:
             updateTotal = state.subTotal + Number(payload)
@@ -144,7 +144,7 @@ export const CartReducers = (state = initialState, action: AnyAction) => {
                 products: updatedList,
                 total: updateTotal,
                 subTotal: updateSubTotal,
-                discount: updateDiscount
+                discount: Number(updateDiscount.toFixed(2))
             }
         case CartActionTypes.APPLY_COUPON:
             updateDiscount = payload.toString().toLowerCase() === "flat20" ? (state.subTotal * 0.20) : 0
@@ -154,7 +154,7 @@ export const CartReducers = (state = initialState, action: AnyAction) => {
                 ...state,
                 coupon: payload.toString().toLowerCase(),
                 total: updateTotal,
-                discount: Number(updateDiscount).toFixed(2)
+                discount: Number(updateDiscount.toFixed(2))
             }
         case CartActionTypes.ADD_TO_CART:
             return {
